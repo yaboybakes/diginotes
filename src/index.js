@@ -1,47 +1,75 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import StickyNote from './components/stickyNote'
+import StickyNote from './components/StickyNote'
 
+export default class BulletinBoard extends React.Component {
+    constructor() {
+      super()
+      this.state = {
+        notes: []
+      }
+      this.displayNote = this.displayNote.bind(this);
+      this.generateId = this.generateId.bind(this);
+      this.add = this.add.bind(this);
+      this.update = this.update.bind(this);
+      this.remove = this.remove.bind(this);
+    }
 
-class App extends React.Component {
-   constructor() {
-     super();
-     this.state = {
-       todos: ["finish my project","get some sleep","eat healthy","work out"],
-       todo: ""
-     }
-     this.addTask = this.addTask.bind(this);
-     this.handleTask = this.handleTask.bind(this);
-   }
-   addTask(newTask) {
-     this.setState({
-        todo: newTask.target.value
-     });
-   }
-   handleTask() {
-      var task = this.state.todo;
-      var list = this.state.todos;
-      list.push(task);
-      this.setState({
-        todos: list,
-        todo: ""
+    componentWillMount() {
+       this.add("finish my school project");
+    }
+
+    displayNote(note,idx) {
+      return (
+        <div>
+          <StickyNote key={note.id} index={idx} onChange={this.update} onRemove={this.remove} task={note}>
+            {note.msg}
+          </StickyNote>
+        </div>
+      )
+    }
+
+    generateId() {
+      this.uniqueId = this.uniqueId || 0;
+      return this.uniqueID++;
+    }
+
+    add(task) {
+      var list = this.state.notes
+      list.push({
+        id: this.generateId(),
+        msg: task
       });
+      this.setState({
+        notes: list
+      });
+    }
 
-   }
-   render() {
-     return (<div>
-       <h1>Todo List</h1>
-       <ol>
-         {this.state.todos.map(
-           (todo,index) => <StickyNote key={index} task={todo} />
-         )}
-       </ol>
-       <input value={this.state.todo} onChange={this.addTask} type="text" />
-       <button onClick={this.handleTask}>Add Todo</button>
-     </div>
-    );
-   }
+    update(task,index) {
+      var list = this.state.notes;
+      list[index].msg = task;
+      this.setState({
+         notes: list
+      });
+    }
+
+    remove(index) {
+      var list = this.state.notes
+      list.splice(index,1);
+      this.setState({
+        notes: list
+      });
+    }
+
+    render() {
+      return (
+        <div className="bulletinBoard">
+            {this.state.notes.map(this.displayNote)}
+            <button className="btn btn-sm btn-success glyphicon glyphicon-duplicate" onClick={this.add.bind(null,"no trees were harmed in this sticky note")}></button>
+        </div>
+      )
+    }
 }
 
 
-ReactDOM.render(<App />,document.getElementById('app'));
+ReactDOM.render(<BulletinBoard />, document.getElementById('app'));
