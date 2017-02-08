@@ -23,8 +23,10 @@ class App extends React.Component {
       var list = this.state.todos;
       list.push(task);
       this.setState({
-        todos: list
+        todos: list,
+        todo: ""
       });
+
    }
    render() {
      return (<div>

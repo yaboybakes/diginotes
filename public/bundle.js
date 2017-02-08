@@ -21845,7 +21845,8 @@ var App = function (_React$Component) {
       var list = this.state.todos;
       list.push(task);
       this.setState({
-        todos: list
+        todos: list,
+        todo: ""
       });
     }
   }, {
