@@ -68,10 +68,12 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-console.log("hello there!")
+"use strict";
 
+
+console.log("hello there!");
 
 /***/ })
 /******/ ]);
