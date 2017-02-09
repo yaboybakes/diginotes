@@ -1,3 +1,24 @@
 body {
-  background-color: orange
+  background-image: url("https://s-media-cache-ak0.pinimg.com/736x/bf/cb/85/bfcb854c82b4b3fecbf9b5c8d9269f40.jpg");
+}
+
+.sticky {
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.glyphicon-leaf {
+  margin: 10px;
+  height: 40px;
+  width: 40px;
+}
+
+h1 {
+  font-size: small;
+}
+
+textarea {
+  height: 150px;
 }

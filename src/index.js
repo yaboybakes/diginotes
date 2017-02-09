@@ -14,11 +14,9 @@ export default class BulletinBoard extends React.Component {
       this.update = this.update.bind(this);
       this.remove = this.remove.bind(this);
     }
-
     componentWillMount() {
-       this.add("finish my school project");
+      //pull in notes from DB and populate with this.add(note)
     }
-
     displayNote(note,idx) {
       return (
         <div>
@@ -64,8 +62,8 @@ export default class BulletinBoard extends React.Component {
     render() {
       return (
         <div className="bulletinBoard">
+          <button className="btn btn-sm btn-success glyphicon glyphicon-leaf" onClick={this.add.bind(null,"no trees were harmed in the making of this sticky note")}></button>
             {this.state.notes.map(this.displayNote)}
-            <button className="btn btn-sm btn-success glyphicon glyphicon-duplicate" onClick={this.add.bind(null,"no trees were harmed in this sticky note")}></button>
         </div>
       )
     }
