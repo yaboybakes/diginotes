@@ -62,7 +62,7 @@ export default class BulletinBoard extends React.Component {
     render() {
       return (
         <div className="bulletinBoard">
-          <button className="btn btn-sm btn-success glyphicon glyphicon-leaf" onClick={this.add.bind(null,"no trees were harmed in the making of this sticky note")}></button>
+          <button className="btn btn-sm btn-success glyphicon glyphicon-plus" onClick={this.add.bind(null,"no trees were harmed in the making of this sticky note")}></button>
             {this.state.notes.map(this.displayNote)}
         </div>
       )

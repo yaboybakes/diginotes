@@ -33,7 +33,7 @@ export default class StickyNote extends React.Component {
 
   saveNote(update) {
     console.log("update " + update + " and index  " + this.props.index);
-    this.props.onChange(update.target.value,this.props.index);
+    this.props.onChange(update,this.props.index);
     this.setState({
       editing: false
     });

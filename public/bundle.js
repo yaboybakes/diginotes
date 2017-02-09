@@ -9541,7 +9541,7 @@ var StickyNote = function (_React$Component) {
     key: 'saveNote',
     value: function saveNote(update) {
       console.log("update " + update + " and index  " + this.props.index);
-      this.props.onChange(update.target.value, this.props.index);
+      this.props.onChange(update, this.props.index);
       this.setState({
         editing: false
       });
@@ -21933,7 +21933,7 @@ var BulletinBoard = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'bulletinBoard' },
-        _react2.default.createElement('button', { className: 'btn btn-sm btn-success glyphicon glyphicon-leaf', onClick: this.add.bind(null, "no trees were harmed in the making of this sticky note") }),
+        _react2.default.createElement('button', { className: 'btn btn-sm btn-success glyphicon glyphicon-plus', onClick: this.add.bind(null, "no trees were harmed in the making of this sticky note") }),
         this.state.notes.map(this.displayNote)
       );
     }
@@ -21987,8 +21987,7 @@ var UpdateNoteForm = function (_React$Component) {
   _createClass(UpdateNoteForm, [{
     key: "saveNote",
     value: function saveNote() {
-      console.log(this.refs.update);
-      this.props.save(this.refs.update.getDOMNode().value);
+      this.props.save(this.refs.update.value);
     }
   }, {
     key: "render",
@@ -21996,7 +21995,7 @@ var UpdateNoteForm = function (_React$Component) {
       return _react2.default.createElement(
         "div",
         { className: "sticky" },
-        _react2.default.createElement("textarea", { ref: "update", defaultValue: this.props.msg, className: "form-control" }),
+        _react2.default.createElement("textarea", { ref: "update", id: "newMsg", defaultValue: this.props.msg, className: "form-control" }),
         _react2.default.createElement("button", { onClick: this.saveNote, className: "btn btn-sm btn-success glyphicon glyphicon-floppy-saved" })
       );
     }
