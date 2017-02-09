@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import Form from './UpdateNoteForm'
 
 export default class StickyNote extends React.Component {
@@ -21,6 +22,10 @@ export default class StickyNote extends React.Component {
       top: this.randomNumber(0,window.innerHeight-200) + 'px',
       transform: 'rotate(' + this.randomNumber(-25,40) + 'deg)'
     };
+  }
+
+  componentDidMount() {
+      $(ReactDOM.findDOMNode(this)).draggable();
   }
 
   randomNumber(min,max) {

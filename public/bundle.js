@@ -9625,6 +9625,10 @@ var _react = __webpack_require__(93);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = __webpack_require__(222);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
 var _UpdateNoteForm = __webpack_require__(521);
 
 var _UpdateNoteForm2 = _interopRequireDefault(_UpdateNoteForm);
@@ -9663,6 +9667,11 @@ var StickyNote = function (_React$Component) {
         top: this.randomNumber(0, window.innerHeight - 200) + 'px',
         transform: 'rotate(' + this.randomNumber(-25, 40) + 'deg)'
       };
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      $(_reactDom2.default.findDOMNode(this)).draggable();
     }
   }, {
     key: 'randomNumber',
