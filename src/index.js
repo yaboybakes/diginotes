@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import StickyNote from './components/StickyNote'
 
+
 export default class BulletinBoard extends React.Component {
     constructor() {
       super()

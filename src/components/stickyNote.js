@@ -2,6 +2,7 @@ import React from 'react'
 import Form from './UpdateNoteForm'
 
 export default class StickyNote extends React.Component {
+
   constructor()
   {
     super()
@@ -11,11 +12,24 @@ export default class StickyNote extends React.Component {
     this.showNote = this.showNote.bind(this);
     this.editNote = this.editNote.bind(this);
     this.saveNote = this.saveNote.bind(this);
+    this.randomNumber = this.randomNumber.bind(this);
+  }
+
+  componentWillMount() {
+    this.style = {
+      left: this.randomNumber(10, window.innerWidth-210) + 'px',
+      top: this.randomNumber(0,window.innerHeight-200) + 'px',
+      transform: 'rotate(' + this.randomNumber(-25,40) + 'deg)'
+    };
+  }
+
+  randomNumber(min,max) {
+    return (min + Math.ceil(Math.random() * max));
   }
 
   showNote() {
     return (
-      <div className="sticky">
+      <div className="sticky" style={this.style}>
         <h1>{this.props.task.msg}</h1>
         <span>
           <button className="btn btn-sm glyphicon glyphicon-comment" onClick={this.editNote}></button>
@@ -40,7 +54,7 @@ export default class StickyNote extends React.Component {
   }
 
   updateNote() {
-    return <Form msg={this.props.children} save={this.saveNote}/>
+    return <Form msg={this.props.children} save={this.saveNote} style={this.style}/>
   }
 
   render() {
