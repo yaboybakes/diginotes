@@ -27,7 +27,6 @@ export default class UpdateNoteForm extends React.Component {
       $(ReactDOM.findDOMNode(this)).draggable();
   }
 
-
    render() {
      return (
        <div className="sticky" style={this.style}>

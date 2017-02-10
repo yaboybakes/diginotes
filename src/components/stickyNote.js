@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Form from './UpdateNoteForm'
+import axios from 'axios'
 
 export default class StickyNote extends React.Component {
 
@@ -14,6 +15,7 @@ export default class StickyNote extends React.Component {
     this.editNote = this.editNote.bind(this);
     this.saveNote = this.saveNote.bind(this);
     this.randomNumber = this.randomNumber.bind(this);
+    this.saveToMongo = this.saveToMongo.bind(this);
   }
 
   componentWillMount() {
@@ -52,11 +54,24 @@ export default class StickyNote extends React.Component {
     })
   }
 
+  saveToMongo(update,id) {
+    axios.post('/api/new/' + id + '/' + update, {
+      msg: update,
+      id: id
+    }).then((response) => {
+      this.setState({
+        editing: false
+      })
+    });
+  }
+
   saveNote(update) {
     this.props.onChange(update,this.props.index);
     this.setState({
       editing: false
     });
+
+    this.saveToMongo(update,this.props.index);
   }
 
   updateNote() {

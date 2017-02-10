@@ -6,19 +6,16 @@ module.exports = {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js'
   },
+  devtool: 'source-map',
   module: {
     loaders: [{
       test: /\.js$/,
+      include: /src/,
       loader: 'babel-loader',
       query: {
         presets: ["es2015","react"]
       }
     }]
   },
-  node: {
-    console: true,
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty'
-  }
+  devtool: "eval-source-map"
 }

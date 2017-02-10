@@ -1,5 +1,5 @@
 // Modules
-var express = require(`express`);
+var express = require('express');
 var path = require(`path`);
 var bodyParser = require("body-parser");
 var logger = require("morgan");
@@ -8,7 +8,7 @@ var Promise = require("bluebird");
 // Express Port/App Declaration
 var PORT = process.env.PORT || 3000;
 var app = express();
-
+var routes = require('./api/routes/routes')
 
 // Middleware
 app.use(express.static(path.join(__dirname, 'public')));
@@ -16,10 +16,14 @@ app.use(logger("dev"));
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+// parse application/json
+app.use(bodyParser.json())
 // Routes
 app.get(`*`, function(req, res) {
   res.sendFile('public/index.html', { root: __dirname });
 });
+
+app.use('/api',routes);
 
 // Connection to PORT
 app.listen(PORT, function() {
