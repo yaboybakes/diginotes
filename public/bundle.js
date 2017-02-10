@@ -9663,9 +9663,11 @@ var StickyNote = function (_React$Component) {
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.style = {
-        left: this.randomNumber(10, window.innerWidth - 210) + 'px',
-        top: this.randomNumber(0, window.innerHeight - 200) + 'px',
-        transform: 'rotate(' + this.randomNumber(-25, 40) + 'deg)'
+        left: this.randomNumber(10, window.innerWidth - 510) + 'px',
+        top: this.randomNumber(0, window.innerHeight - 500) + 'px',
+        transform: 'rotate(' + this.randomNumber(-25, 40) + 'deg)',
+        zIndex: 0,
+        fontSize: 40 + 'px'
       };
     }
   }, {
@@ -9686,7 +9688,7 @@ var StickyNote = function (_React$Component) {
         { className: 'sticky', style: this.style },
         _react2.default.createElement(
           'h1',
-          null,
+          { onClick: this.editNote },
           this.props.task.msg
         ),
         _react2.default.createElement(
@@ -9707,7 +9709,6 @@ var StickyNote = function (_React$Component) {
   }, {
     key: 'saveNote',
     value: function saveNote(update) {
-      console.log("update " + update + " and index  " + this.props.index);
       this.props.onChange(update, this.props.index);
       this.setState({
         editing: false
@@ -22205,6 +22206,10 @@ var _react = __webpack_require__(93);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = __webpack_require__(222);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22226,18 +22231,36 @@ var UpdateNoteForm = function (_React$Component) {
   }
 
   _createClass(UpdateNoteForm, [{
-    key: "saveNote",
+    key: 'saveNote',
     value: function saveNote() {
       this.props.save(this.refs.update.value);
     }
   }, {
-    key: "render",
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.style = {
+        left: window.innerWidth / 3 + 100 + 'px',
+        top: window.innerHeight / 4 + 'px',
+        transform: 'rotate(' + 0 + 'deg)',
+        width: 1000 + 'px',
+        height: 1000 + 'px',
+        zIndex: 1,
+        border: 5 + 'px solid red'
+      };
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      $(_reactDom2.default.findDOMNode(this)).draggable();
+    }
+  }, {
+    key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        "div",
-        { className: "sticky" },
-        _react2.default.createElement("textarea", { ref: "update", id: "newMsg", defaultValue: this.props.msg, className: "form-control" }),
-        _react2.default.createElement("button", { onClick: this.saveNote, className: "btn btn-sm btn-success glyphicon glyphicon-floppy-saved" })
+        'div',
+        { className: 'sticky', style: this.style },
+        _react2.default.createElement('textarea', { ref: 'update', id: 'newMsg', defaultValue: this.props.msg, className: 'form-control' }),
+        _react2.default.createElement('button', { onClick: this.saveNote, className: 'btn btn-sm btn-success glyphicon glyphicon-floppy-saved' })
       );
     }
   }]);
@@ -22317,11 +22340,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 module.exports = _react2.default.createElement(
   _reactRouter.Router,
   { history: _reactRouter.browserHistory },
-  _react2.default.createElement(
-    _reactRouter.Route,
-    { path: '/', component: _BulletinBoard2.default },
-    _react2.default.createElement(_reactRouter.IndexRoute, { component: _BulletinBoard2.default })
-  )
+  _react2.default.createElement(_reactRouter.Route, { path: '/', component: _BulletinBoard2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: '*', component: _BulletinBoard2.default })
 );
 
 /***/ }),

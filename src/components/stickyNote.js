@@ -18,9 +18,11 @@ export default class StickyNote extends React.Component {
 
   componentWillMount() {
     this.style = {
-      left: this.randomNumber(10, window.innerWidth-210) + 'px',
-      top: this.randomNumber(0,window.innerHeight-200) + 'px',
-      transform: 'rotate(' + this.randomNumber(-25,40) + 'deg)'
+      left: this.randomNumber(10, window.innerWidth-510) + 'px',
+      top: this.randomNumber(0,window.innerHeight-500) + 'px',
+      transform: 'rotate(' + this.randomNumber(-25,40) + 'deg)',
+      zIndex: 0,
+      fontSize: 40+'px'
     };
   }
 
@@ -35,7 +37,7 @@ export default class StickyNote extends React.Component {
   showNote() {
     return (
       <div className="sticky" style={this.style}>
-        <h1>{this.props.task.msg}</h1>
+        <h1 onClick={this.editNote}>{this.props.task.msg}</h1>
         <span>
           <button className="btn btn-sm glyphicon glyphicon-comment" onClick={this.editNote}></button>
           <button className="btn btn-sm btn-danger glyphicon glyphicon-remove" onClick={this.props.onRemove}></button>
@@ -51,7 +53,6 @@ export default class StickyNote extends React.Component {
   }
 
   saveNote(update) {
-    console.log("update " + update + " and index  " + this.props.index);
     this.props.onChange(update,this.props.index);
     this.setState({
       editing: false

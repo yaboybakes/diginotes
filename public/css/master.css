@@ -16,6 +16,11 @@ body {
   width: 80px;
 }
 
+.glyphicon-floppy-saved {
+  height: 40px;
+  width: 40px;
+}
+
 .sticky button {
   display: none;
 }
@@ -24,10 +29,6 @@ body {
   display: block;
 }
 
-h1 {
-  font-size: small;
-}
-
 textarea {
-  height: 200px;
+  margin: 2px;
 }
