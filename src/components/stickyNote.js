@@ -26,6 +26,7 @@ export default class StickyNote extends React.Component {
       zIndex: 0,
       fontSize: 40+'px'
     };
+    $(ReactDOM.findDOMNode(this)).draggable();
   }
 
   componentDidMount() {
