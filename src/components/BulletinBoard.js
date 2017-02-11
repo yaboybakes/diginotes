@@ -1,18 +1,21 @@
 import React from 'react'
 import StickyNote from './StickyNote'
 import axios from 'axios'
+var twilio = require('twilio')
 
 export default class BulletinBoard extends React.Component {
     constructor() {
       super()
       this.state = {
-        notes: []
+        notes: [],
+        uniqueid: 0
       }
       this.displayNote = this.displayNote.bind(this);
       this.generateId = this.generateId.bind(this);
       this.add = this.add.bind(this);
       this.update = this.update.bind(this);
       this.remove = this.remove.bind(this);
+      this.clear = this.clear.bind(this);
     }
 
     displayNote(note,idx) {
@@ -31,9 +34,12 @@ export default class BulletinBoard extends React.Component {
         var list = [];
         console.log(posts.data);
         list = posts.data;
+        var length = list.length
+        console.log(length);
         if (list !== null) {
           this.setState({
-            notes: posts.data
+            notes: posts.data,
+            uniqueId: length
           });
         }
       });
@@ -52,6 +58,12 @@ export default class BulletinBoard extends React.Component {
       });
       this.setState({
         notes: list
+      });
+    }
+
+    clear() {
+      axios.post('/api/clear').then(posts => {
+        console.log(posts);
       });
     }
 
@@ -75,6 +87,7 @@ export default class BulletinBoard extends React.Component {
       return (
         <div className="bulletinBoard">
           <button className="btn btn-sm btn-success glyphicon glyphicon-plus" onClick={this.add.bind(null,"no trees were harmed in the making of this sticky note")}></button>
+          <button className="btn btn-sm btn-danger glyphicon glyphicon-trash" onClick={this.clear}></button>
             {this.state.notes.map(this.displayNote)}
         </div>
       )

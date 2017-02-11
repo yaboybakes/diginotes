@@ -25,5 +25,12 @@ router.get('/all', (req,res) => {
   });
 });
 
+router.get('/clear', (req,res) => {
+  res.send(true);
+});
+
+router.post('/clear', (req,res) => {
+  res.send(true);
+});
 
 module.exports = router;
