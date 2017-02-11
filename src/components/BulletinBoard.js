@@ -1,5 +1,6 @@
 import React from 'react'
 import StickyNote from './StickyNote'
+import axios from 'axios'
 
 export default class BulletinBoard extends React.Component {
     constructor() {
@@ -13,9 +14,7 @@ export default class BulletinBoard extends React.Component {
       this.update = this.update.bind(this);
       this.remove = this.remove.bind(this);
     }
-    componentWillMount() {
-      //pull in notes from DB and populate with this.add(note)
-    }
+
     displayNote(note,idx) {
       return (
         <div>
@@ -24,6 +23,15 @@ export default class BulletinBoard extends React.Component {
           </StickyNote>
         </div>
       )
+    }
+
+    componentWillMount() {
+      axios.get('/api/all').then(posts => {
+        console.log(posts.data);
+        this.setState({
+          notes: posts.data
+        });
+      });
     }
 
     generateId() {

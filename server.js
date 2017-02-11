@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
 // parse application/json
 app.use(bodyParser.json())
 // Routes
-app.get(`*`, function(req, res) {
+app.get(`/`, function(req, res) {
   res.sendFile('public/index.html', { root: __dirname });
 });
 
