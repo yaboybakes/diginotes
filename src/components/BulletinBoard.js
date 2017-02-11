@@ -1,7 +1,6 @@
 import React from 'react'
 import StickyNote from './StickyNote'
 import axios from 'axios'
-var twilio = require('twilio')
 
 export default class BulletinBoard extends React.Component {
     constructor() {
@@ -29,13 +28,9 @@ export default class BulletinBoard extends React.Component {
     }
 
     componentWillMount() {
-
       axios.get('/api/all').then(posts => {
         var list = [];
-        console.log(posts.data);
         list = posts.data;
-        var length = list.length
-        console.log(length);
         if (list !== null) {
           this.setState({
             notes: posts.data,
@@ -62,7 +57,8 @@ export default class BulletinBoard extends React.Component {
     }
 
     clear() {
-      axios.post('/api/clear').then(posts => {
+      console.log("about to clear board");
+      axios.get('/api/clear').then(posts => {
         console.log(posts);
       });
     }

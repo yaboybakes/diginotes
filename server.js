@@ -5,7 +5,7 @@ var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var Promise = require("bluebird");
-// Express Port/App Declaration
+
 var PORT = process.env.PORT || 3000;
 var app = express();
 var routes = require('./api/routes/routes')
@@ -16,14 +16,13 @@ app.use(logger("dev"));
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-// parse application/json
 app.use(bodyParser.json())
 // Routes
-app.get(`/`, function(req, res) {
+app.get('/', function(req, res) {
   res.sendFile('public/index.html', { root: __dirname });
 });
 
-app.use('/api/',routes);
+app.use('/api',routes);
 
 // Connection to PORT
 app.listen(PORT, function() {
@@ -31,7 +30,6 @@ app.listen(PORT, function() {
 });
 
 mongoose.Promise = Promise;
-
 mongoose.connect("mongodb://localhost/dn");
 
 var db = mongoose.connection;
@@ -39,8 +37,6 @@ var db = mongoose.connection;
 db.on("error", function(error) {
   console.log("Mongoose Error: ", error);
 });
-
-
 db.once("open", function() {
   console.log("Mongoose connection successful.");
 });
