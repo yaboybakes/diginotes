@@ -3,12 +3,10 @@ const express = require('express')
 const router = express.Router();
 const Note = require('../models/Note')
 
-router.post('/new/:id/:msg', (req,res) => {
-  console.log("saving to db");
-
+router.post('/new/:id/:task', (req,res) => {
     let entry = new Note({
       id: req.params.id,
-      message: req.params.msg
+      msg: req.params.task
     });
 
     entry.save((err,response) => {

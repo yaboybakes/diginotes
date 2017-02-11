@@ -26,11 +26,16 @@ export default class BulletinBoard extends React.Component {
     }
 
     componentWillMount() {
+
       axios.get('/api/all').then(posts => {
+        var list = [];
         console.log(posts.data);
-        this.setState({
-          notes: posts.data
-        });
+        list = posts.data;
+        if (list !== null) {
+          this.setState({
+            notes: posts.data
+          });
+        }
       });
     }
 
