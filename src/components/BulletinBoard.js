@@ -59,7 +59,7 @@ export default class BulletinBoard extends React.Component {
     clear() {
       console.log("about to clear board");
       axios.get('/api/clear').then(posts => {
-        console.log(posts);
+        this.forceUpdate();
       });
     }
 
@@ -73,9 +73,12 @@ export default class BulletinBoard extends React.Component {
 
     remove(index) {
       var list = this.state.notes
+      console.log("index is " + index);
       list.splice(index,1);
       this.setState({
         notes: list
+      });
+      axios.get('/api/delete/'+index).then(res=>{
       });
     }
 

@@ -43,7 +43,7 @@ export default class StickyNote extends React.Component {
         <h1 onClick={this.editNote}>{this.props.task.msg}</h1>
         <span>
           <button className="btn btn-sm glyphicon glyphicon-comment" onClick={this.editNote}></button>
-          <button className="btn btn-sm btn-danger glyphicon glyphicon-remove" onClick={this.props.onRemove}></button>
+          <button className="btn btn-sm btn-danger glyphicon glyphicon-remove" onClick={this.props.onRemove.bind(this,this.props.task.id)}></button>
         </span>
       </div>
     )
