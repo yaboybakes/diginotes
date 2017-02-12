@@ -8,28 +8,28 @@ const client = require('twilio')(credentials.accountSID,credentials.authToken);
 const mongoose = require('mongoose')
 
 router.post('/new/:id/:task/:sms', (req,res) => {
+
     let entry = new Note({
       id: req.params.id,
       msg: req.params.task
     });
 
-
-
+    var mobileNote = req.params.sms
     entry.save((err,response) => {
       if (err) console.log(err);
-        // res.send(true);
-        const twiml = new twilio.TwimlResponse();
-        twiml.message('Go to bed ya lazy fuq!');
-        res.writeHead(200, {'Content-Type': 'text/xml'});
-        res.end(twiml.toString());
+        if (mobileNote !== null) {
+          const twiml = new twilio.TwimlResponse();
+          twiml.message('crikey mate! thats a good idea. lets get it done ASAP.');
+          res.writeHead(200, {'Content-Type': 'text/xml'});
+          res.end(twiml.toString());
+        } else {
+          res.send(true)
+        }
     });
 });
 
 router.post('/sms', (req,res) => {
-  // const twiml = new twilio.TwimlResponse();
-  // twiml.message('Go to bed ya lazy fuq!');
   res.redirect('/api/new/1/' + req.body.Body + '/true');
-
 });
 
 
