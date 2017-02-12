@@ -7,22 +7,29 @@ const credentials = require('../../twilioCredentials')
 const client = require('twilio')(credentials.accountSID,credentials.authToken);
 const mongoose = require('mongoose')
 
-router.post('/new/:id/:task', (req,res) => {
+router.post('/new/:id/:task/:sms', (req,res) => {
     let entry = new Note({
       id: req.params.id,
       msg: req.params.task
     });
 
+
+
     entry.save((err,response) => {
       if (err) console.log(err);
-        res.send(true);
+        // res.send(true);
+        const twiml = new twilio.TwimlResponse();
+        twiml.message('Go to bed ya lazy fuq!');
+        res.writeHead(200, {'Content-Type': 'text/xml'});
+        res.end(twiml.toString());
     });
 });
 
 router.post('/sms', (req,res) => {
-  const twiml = new twilio.TwimlResponse();
-  //twiml.message('Go to bed ya lazy fuq!');
-  res.redirect('/api/new/1/' + req.body.Body);
+  // const twiml = new twilio.TwimlResponse();
+  // twiml.message('Go to bed ya lazy fuq!');
+  res.redirect('/api/new/1/' + req.body.Body + '/true');
+
 });
 
 
