@@ -13,24 +13,16 @@ router.post('/new/:id/:task', (req,res) => {
       msg: req.params.task
     });
 
-    client.messages.create({
-    body: req.params.task,
-    to: '',
-    from: credentials.twilioNumber
-  }, function(err, data) {
-    if (err) {
-      console.error('Could not notify administrator');
-      console.error(err);
-    } else {
-      console.log('Administrator notified');
-    }
-  });
-
-      console.log("past sms");
     entry.save((err,response) => {
       if (err) console.log(err);
         res.send(true);
     });
+});
+
+router.post('/sms', (req,res) => {
+  const twiml = new twilio.TwimlResponse();
+  //twiml.message('Go to bed ya lazy fuq!');
+  res.redirect('/api/new/1/' + req.body.Body);
 });
 
 
