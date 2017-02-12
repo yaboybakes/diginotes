@@ -59,8 +59,9 @@ export default class BulletinBoard extends React.Component {
     clear() {
       console.log("about to clear board");
       axios.get('/api/clear').then(posts => {
-        this.forceUpdate();
+        console.log(posts);
       });
+      this.forceUpdate()
     }
 
     update(task,index) {

@@ -12,19 +12,21 @@ router.post('/new/:id/:task', (req,res) => {
       id: req.params.id,
       msg: req.params.task
     });
-    console.log("sending txt");
 
-    client.messages
-      .create({
-        to: '+5126577011',
-        from: credentials.phoneNumber,
-        body: req.params.task,
-      })
-      .then((err,message) => {
-        if(err) console.log(err);
-        console.log(message.sid)
-      });
+    client.messages.create({
+    body: req.params.task,
+    to: '',
+    from: credentials.twilioNumber
+  }, function(err, data) {
+    if (err) {
+      console.error('Could not notify administrator');
+      console.error(err);
+    } else {
+      console.log('Administrator notified');
+    }
+  });
 
+      console.log("past sms");
     entry.save((err,response) => {
       if (err) console.log(err);
         res.send(true);
