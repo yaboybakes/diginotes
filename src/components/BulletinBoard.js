@@ -7,7 +7,7 @@ export default class BulletinBoard extends React.Component {
       super()
       this.state = {
         notes: [],
-        uniqueid: 0
+        uniqueId: 0
       }
       this.displayNote = this.displayNote.bind(this);
       this.generateId = this.generateId.bind(this);
@@ -57,11 +57,12 @@ export default class BulletinBoard extends React.Component {
     }
 
     clear() {
-      console.log("about to clear board");
       axios.get('/api/clear').then(posts => {
         console.log(posts);
       });
-      this.forceUpdate()
+      this.setState({
+        notes: []
+      });
     }
 
     update(task,index) {
@@ -73,13 +74,13 @@ export default class BulletinBoard extends React.Component {
     }
 
     remove(index) {
+      console.log(index);
       var list = this.state.notes
-      console.log("index is " + index);
-      list.splice(index,1);
-      this.setState({
-        notes: list
-      });
-      axios.get('/api/delete/'+index).then(res=>{
+      var id = list[index].id
+      axios.get('/api/delete/'+id).then(res=>{
+        this.setState({
+          notes: res.data
+        });
       });
     }
 

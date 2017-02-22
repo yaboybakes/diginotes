@@ -19,7 +19,7 @@ router.post('/new/:id/:task/:sms', (req,res) => {
       if (err) console.log(err);
         if (mobileNote !== null) {
           const twiml = new twilio.TwimlResponse();
-          twiml.message('crikey mate! thats a good idea. lets get it done ASAP.');
+          twiml.message('crikey mate sounds like a good idea to me. lets get it on that ASAP!');
           res.writeHead(200, {'Content-Type': 'text/xml'});
           res.end(twiml.toString());
         } else {
@@ -32,6 +32,11 @@ router.post('/sms', (req,res) => {
   res.redirect('/api/new/1/' + req.body.Body + '/true');
 });
 
+router.get('/count', (req,res) => {
+  Note.count({}, function(err, count) {
+    console.log(count);
+  });
+});
 
 router.get('/all', (req,res) => {
   Note.find({},(err,results) => {
@@ -44,14 +49,10 @@ router.get('/all', (req,res) => {
 });
 
 router.get('/delete/:id', (req,res) =>{
-   var uniqueID = req.params.id;
-   Note.findOne({
-     id: uniqueID
-   }, function(err, res) {
-     res.remove(function(err){
-       if (!err) console.log("success");
-     })
-   })
+  Note.findOneAndRemove({"id":req.params.id}, function (err, todo) {
+    if (err) console.log(err);
+      res.redirect('/api/all');
+  });
 });
 
 router.get('/clear', (req,res) => {
